@@ -1,0 +1,256 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#f6b2c8">
+  <title>O.nails — запись на маникюр</title>
+  <meta name="description" content="O.nails — запись на маникюр. Выберите длину, дизайн, снятие или коррекцию и отправьте готовую заявку в Telegram.">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='22' fill='%23f6b2c8'/%3E%3Cpath d='M50 76C24 61 17 49 18 35c1-13 17-20 28-8l4 5 4-5c11-12 27-5 28 8 1 14-6 26-32 41Z' fill='none' stroke='%23931c4c' stroke-width='6' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=Manrope:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div class="bg-orb orb-1"></div>
+  <div class="bg-orb orb-2"></div>
+
+  <header class="site-header">
+    <div class="shell nav">
+      <a class="brand" href="#top" aria-label="O.nails — на главную">
+        <span class="brand-mark">♡</span>
+        <span>O.nails</span>
+      </a>
+      <nav class="desktop-nav">
+        <a href="#prices">Цены</a>
+        <a href="#booking">Запись</a>
+        <a href="#visit">Перед визитом</a>
+      </nav>
+      <a class="nav-cta" href="#booking">Записаться</a>
+    </div>
+  </header>
+
+  <main id="top">
+    <section class="hero shell">
+      <div class="hero-copy">
+        <span class="eyebrow">маникюр • дизайн • уход</span>
+        <h1>Ногти,<br><em>к которым</em><br>хочется возвращаться.</h1>
+        <p class="hero-text">O.nails — спокойная атмосфера, аккуратная работа и запись без лишней переписки. Заполните форму — и заявка соберётся сама.</p>
+        <div class="hero-actions">
+          <a class="btn btn-primary" href="#booking">Записаться на сеанс <span>↗</span></a>
+          <a class="btn btn-ghost" href="#prices">Смотреть цены</a>
+        </div>
+        <div class="trust-row">
+          <span>♡ Индивидуальный подход</span>
+          <span>✦ Дизайн обсуждаем заранее</span>
+          <span>⌁ Без спешки</span>
+        </div>
+      </div>
+
+      <div class="hero-art">
+        <div class="hero-card back-card"></div>
+        <div class="hero-card main-card">
+          <div class="photo-wrap">
+            <img src="assets/price-menu.jpg" alt="Меню цен O.nails в розовой эстетике">
+            <div class="photo-badge">
+              <span class="badge-icon">♡</span>
+              <div>
+                <strong>O.nails</strong>
+                <small>beauty • care • mood</small>
+              </div>
+            </div>
+          </div>
+          <div class="card-note">
+            <span>Сегодня выбираем настроение</span>
+            <strong>от нежного nude<br>до акцентного дизайна ✦</strong>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section shell" id="prices">
+      <div class="section-heading">
+        <div>
+          <span class="eyebrow">прайс</span>
+          <h2>Цены без сюрпризов</h2>
+        </div>
+        <p>Стоимость зависит от длины. Доплаты за дизайн, ремонт и снятие — отдельно.</p>
+      </div>
+
+      <div class="price-grid">
+        <article class="price-card featured">
+          <span class="price-index">01</span>
+          <h3>Длина 1–2</h3>
+          <p>короткие ногти</p>
+          <strong>1 300 ₽</strong>
+        </article>
+        <article class="price-card">
+          <span class="price-index">02</span>
+          <h3>Длина 3–5</h3>
+          <p>средняя длина</p>
+          <strong>1 500 ₽</strong>
+        </article>
+        <article class="price-card">
+          <span class="price-index">03</span>
+          <h3>Длина 6–7</h3>
+          <p>длинные ногти</p>
+          <strong>1 700 ₽</strong>
+        </article>
+        <article class="price-card">
+          <span class="price-index">04</span>
+          <h3>Длина 8 и более</h3>
+          <p>очень длинные ногти</p>
+          <strong>2 000 ₽</strong>
+        </article>
+      </div>
+
+      <div class="extras">
+        <div class="extra">
+          <span class="extra-icon">✦</span>
+          <div><strong>Доплата за дизайн</strong><small>до 300 ₽</small></div>
+          <b>до 300 ₽</b>
+        </div>
+        <div class="extra">
+          <span class="extra-icon">✦</span>
+          <div><strong>Починка одного ногтя</strong><small>за 1 ноготь</small></div>
+          <b>200 ₽</b>
+        </div>
+        <div class="extra">
+          <span class="extra-icon">✦</span>
+          <div><strong>Снятие</strong><small>отдельная услуга</small></div>
+          <b>400 ₽</b>
+        </div>
+      </div>
+
+      <p class="price-note">Коррекцию можно указать при записи — стоимость мастер подтвердит в Telegram в зависимости от объёма работы.</p>
+    </section>
+
+    <section class="section soft shell" id="booking">
+      <div class="section-heading booking-heading">
+        <div>
+          <span class="eyebrow">онлайн-запись</span>
+          <h2>Оставьте заявку за минуту</h2>
+        </div>
+        <p>Форма не бронирует время автоматически: после отправки откроется Telegram с готовым сообщением мастеру.</p>
+      </div>
+
+      <div class="booking-layout">
+        <form id="bookingForm" class="booking-form">
+          <div class="form-step">
+            <span class="step-num">01</span>
+            <div class="step-content">
+              <label for="name">Ваше имя</label>
+              <input id="name" name="name" type="text" placeholder="Например, Ольга" required>
+            </div>
+          </div>
+
+          <div class="form-step">
+            <span class="step-num">02</span>
+            <div class="step-content">
+              <label for="date">Желаемая дата</label>
+              <input id="date" name="date" type="date" required>
+              <small id="dateStatus" class="date-status">Проверяем свободные даты…</small>
+            </div>
+          </div>
+
+          <div class="form-step">
+            <span class="step-num">03</span>
+            <div class="step-content">
+              <label for="time">Желаемое время</label>
+              <input id="time" name="time" type="text" placeholder="Например, после 17:00">
+            </div>
+          </div>
+
+          <div class="form-step">
+            <span class="step-num">04</span>
+            <div class="step-content">
+              <label>Длина ногтей</label>
+              <div class="option-grid">
+                <label class="option"><input type="radio" name="length" value="1–2" required><span>1–2<small>1 300 ₽</small></span></label>
+                <label class="option"><input type="radio" name="length" value="3–5"><span>3–5<small>1 500 ₽</small></span></label>
+                <label class="option"><input type="radio" name="length" value="6–7"><span>6–7<small>1 700 ₽</small></span></label>
+                <label class="option"><input type="radio" name="length" value="8+"><span>8+<small>2 000 ₽</small></span></label>
+              </div>
+            </div>
+          </div>
+
+          <div class="form-step">
+            <span class="step-num">05</span>
+            <div class="step-content">
+              <label for="design">Какой дизайн хотите?</label>
+              <textarea id="design" name="design" rows="3" placeholder="Опишите идею или напишите: «пришлю фото в Telegram»"></textarea>
+            </div>
+          </div>
+
+          <div class="form-step">
+            <span class="step-num">06</span>
+            <div class="step-content">
+              <label>Что нужно сделать?</label>
+              <div class="toggle-grid">
+                <label class="check-chip"><input type="checkbox" name="removal" value="Да"><span>Нужно снятие</span></label>
+                <label class="check-chip"><input type="checkbox" name="correction" value="Да"><span>Нужна коррекция</span></label>
+              </div>
+            </div>
+          </div>
+
+          <div class="form-step">
+            <span class="step-num">07</span>
+            <div class="step-content">
+              <label for="comment">Что ещё важно знать мастеру?</label>
+              <textarea id="comment" name="comment" rows="3" placeholder="Например: ремонт 1 ногтя, аллергии на материалы, особые пожелания"></textarea>
+            </div>
+          </div>
+
+          <div class="submit-row">
+            <button class="btn btn-primary submit-btn" type="submit">Собрать заявку в Telegram <span>↗</span></button>
+            <p>Нажимая кнопку, вы откроете Telegram с заполненным шаблоном.</p>
+          </div>
+        </form>
+
+        <aside class="booking-side">
+          <div class="telegram-card">
+            <span class="tg-icon">✈</span>
+            <span class="eyebrow">telegram</span>
+            <h3>@olkadolka228</h3>
+            <p>Ваш шаблон заявки уже подготовлен. Останется проверить детали и отправить его мастеру.</p>
+            <a class="btn btn-dark" href="https://t.me/olkadolka228" target="_blank" rel="noopener">Открыть Telegram</a>
+          </div>
+          <div class="mini-card">
+            <span class="mini-icon">♡</span>
+            <div><strong>Дизайн можно прислать фото</strong><p>Сохраните понравившийся референс и отправьте его вместе с заявкой.</p></div>
+          </div>
+          <div class="mini-card">
+            <span class="mini-icon">✓</span>
+            <div><strong>Приходите без спешки</strong><p>Лучше закладывать время с запасом, особенно если выбираете сложный дизайн.</p></div>
+          </div>
+        </aside>
+      </div>
+    </section>
+
+    <section class="section shell" id="visit">
+      <div class="section-heading">
+        <div>
+          <span class="eyebrow">перед визитом</span>
+          <h2>Чтобы сеанс прошёл красиво и спокойно</h2>
+        </div>
+      </div>
+      <div class="visit-grid">
+        <article class="visit-card"><span>01</span><h3>Пришлите референс</h3><p>Чем точнее понятен дизайн, тем проще заранее оценить время и доплату.</p></article>
+        <article class="visit-card"><span>02</span><h3>Укажите снятие</h3><p>Не забудьте отметить, нужно ли снять предыдущее покрытие — это +400 ₽.</p></article>
+        <article class="visit-card"><span>03</span><h3>Сообщите о ремонте</h3><p>Починка одного ногтя стоит 200 ₽. Количество можно написать в комментарии.</p></article>
+        <article class="visit-card"><span>04</span><h3>Выберите длину</h3><p>Цену базового маникюра форма посчитает по выбранной длине из актуального прайса.</p></article>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="shell footer-inner">
+      <div><strong>O.nails</strong><span>Нежные детали. Красивые руки.</span></div>
+      <a href="https://t.me/olkadolka228" target="_blank" rel="noopener">@olkadolka228 ↗</a>
+    </div>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>

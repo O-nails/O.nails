@@ -1,0 +1,13 @@
+{
+  "name": "o-nails-booking",
+  "version": "1.0.0",
+  "private": true,
+  "description": "O.nails booking site with globally locked calendar dates",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "dependencies": {
+    "express": "^5.1.0"
+  }
+}
