@@ -1,1 +1,61 @@
-
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>O.nails</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:ital,wght@0,500;0,600;1,500;1,600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+<script src="https://telegram.org/js/telegram-web-app.js"></script>
+</head>
+<body>
+<div class="bg-orb orb1"></div><div class="bg-orb orb2"></div>
+<header class="header"><div class="brand"><span class="heart">♡</span><span>O.nails</span></div><button id="closeBtn" class="icon-btn" aria-label="Закрыть">×</button></header>
+<main>
+<section id="home" class="screen active">
+  <div class="hero-card">
+    <div class="eyebrow">маникюр • дизайн • уход</div>
+    <h1>Ногти,<br><em>к которым</em><br>хочется возвращаться.</h1>
+    <p>Спокойная эстетика, аккуратная работа и простая запись внутри Telegram.</p>
+    <button class="primary wide" data-screen="booking">💅 Записаться онлайн</button>
+  </div>
+  <div class="menu-grid">
+    <button class="menu-card" data-screen="prices"><span>💰</span><b>Цены</b><small>Актуальный прайс</small></button>
+    <button class="menu-card" data-screen="visit"><span>📋</span><b>Перед визитом</b><small>Важная информация</small></button>
+    <button class="menu-card" data-screen="mybooking"><span>📅</span><b>Моя запись</b><small>Посмотреть детали</small></button>
+    <button class="menu-card" id="adminBtn"><span>💬</span><b>Администратор</b><small>Задать вопрос</small></button>
+    <button class="menu-card danger" data-screen="cancel"><span>❌</span><b>Отменить</b><small>Отмена записи</small></button>
+    <button class="menu-card" data-screen="reschedule"><span>🔄</span><b>Перенести</b><small>Выбрать новую дату</small></button>
+  </div>
+</section>
+<section id="prices" class="screen"><div class="section-head"><button class="back">‹</button><div><div class="eyebrow">O.nails</div><h2>Цены</h2></div></div>
+  <div class="glass price-list"><div class="price-row"><span>Длина 1–2</span><strong>1 300 ₽</strong></div><div class="price-row"><span>Длина 3–5</span><strong>1 500 ₽</strong></div><div class="price-row"><span>Длина 6–7</span><strong>1 700 ₽</strong></div><div class="price-row"><span>Длина 8+</span><strong>2 000 ₽</strong></div><div class="divider"></div><div class="price-row"><span>✨ Дизайн</span><strong>до 300 ₽</strong></div><div class="price-row"><span>✂️ Снятие</span><strong>400 ₽</strong></div><div class="price-row"><span>🔧 Починка одного ногтя</span><strong>200 ₽</strong></div></div>
+  <button class="primary wide" data-screen="booking">💅 Записаться</button>
+</section>
+<section id="visit" class="screen"><div class="section-head"><button class="back">‹</button><div><div class="eyebrow">O.nails</div><h2>Перед визитом</h2></div></div>
+ <div class="glass info"><p>💅 Подготовьте референс дизайна.</p><p>✂️ Если нужно снятие — укажите его при записи.</p><p>🔧 Если нужен ремонт — укажите это в заявке.</p><p>🕐 Время записи — <b>16:00</b>.</p><p>📅 Запись доступна только в будние дни.</p></div>
+ <button class="primary wide" data-screen="booking">💅 Записаться</button>
+</section>
+<section id="booking" class="screen"><div class="section-head"><button class="back">‹</button><div><div class="eyebrow">O.nails</div><h2>Новая запись</h2></div></div>
+ <div class="glass form-card">
+  <label>Имя<input id="name" type="text" placeholder="Ваше имя" autocomplete="name"></label>
+  <label>Дата<input id="date" type="date"></label>
+  <div id="dateHint" class="hint">Выберите свободный будний день</div>
+  <label>Длина ногтей<select id="length"><option value="1–2">1–2</option><option value="3–5">3–5</option><option value="6–7">6–7</option><option value="8+">8+</option></select></label>
+  <label>Дизайн<input id="design" type="text" placeholder="Например: френч"></label>
+  <div class="checks"><label class="check"><input id="removal" type="checkbox"><span>✂️ Нужно снятие</span></label><label class="check"><input id="correction" type="checkbox"><span>🔧 Нужна коррекция</span></label></div>
+  <label>Комментарий<textarea id="comment" rows="3" placeholder="Пожелания"></textarea></label>
+  <div class="fixed-time">🕐 Время: <b>16:00</b></div>
+  <button id="submitBooking" class="primary wide">Подтвердить запись</button><div id="bookingStatus" class="status"></div>
+ </div>
+</section>
+<section id="mybooking" class="screen"><div class="section-head"><button class="back">‹</button><div><div class="eyebrow">O.nails</div><h2>Моя запись</h2></div></div><div id="bookingBox" class="glass booking-box"><div class="loader">Загрузка…</div></div></section>
+<section id="cancel" class="screen"><div class="section-head"><button class="back">‹</button><div><div class="eyebrow">O.nails</div><h2>Отменить запись</h2></div></div><div id="cancelBox" class="glass booking-box"><div class="loader">Загрузка…</div></div></section>
+<section id="reschedule" class="screen"><div class="section-head"><button class="back">‹</button><div><div class="eyebrow">O.nails</div><h2>Перенести запись</h2></div></div><div id="rescheduleBox" class="glass booking-box"><div class="loader">Загрузка…</div></div></section>
+</main>
+<nav class="bottom-nav"><button data-screen="home" class="active"><span>♡</span>Меню</button><button data-screen="prices"><span>₽</span>Цены</button><button data-screen="booking"><span>+</span>Запись</button><button data-screen="mybooking"><span>◷</span>Моя запись</button></nav>
+<div id="toast" class="toast"></div>
+<script src="app.js"></script>
+</body></html>
