@@ -5,7 +5,7 @@ TG?.expand();
 
 if (TG) {
   TG.setHeaderColor?.("#fff9fa");
-  TG.setBackgroundColor?.("#f9eef1");
+  TG.setBackgroundColor?.("#fbf1f4");
   TG.setBottomBarColor?.("#fff9fa");
 }
 
@@ -30,23 +30,12 @@ const $ = (selector) =>
 const $$ = (selector) =>
   [...document.querySelectorAll(selector)];
 
-const screens =
-  $$(".screen");
-
-const nav =
-  $$(".bottom-nav button");
-
-
-/* =====================================================
-   NAVIGATION
-===================================================== */
+const screens = $$(".screen");
+const nav = $$(".bottom-nav button");
 
 function go(id) {
   screens.forEach((screen) => {
-    screen.classList.toggle(
-      "active",
-      screen.id === id,
-    );
+    screen.classList.toggle("active", screen.id === id);
   });
 
   nav.forEach((button) => {
@@ -66,181 +55,104 @@ function go(id) {
   }
 
   if (id === "cancel") {
-    loadBooking(
-      "cancelBox",
-      true,
-      false,
-    );
+    loadBooking("cancelBox", true, false);
   }
 
   if (id === "reschedule") {
-    loadBooking(
-      "rescheduleBox",
-      false,
-      true,
-    );
+    loadBooking("rescheduleBox", false, true);
   }
 }
 
+$$("[data-screen]").forEach((button) => {
+  button.addEventListener("click", () => {
+    go(button.dataset.screen);
+  });
+});
 
-$$('[data-screen]').forEach(
-  (button) => {
-    button.addEventListener(
-      "click",
-      () => {
-        go(button.dataset.screen);
-      },
-    );
-  },
-);
+$$(".back").forEach((button) => {
+  button.addEventListener("click", () => go("home"));
+});
 
+$("#closeBtn")?.addEventListener("click", () => {
+  TG?.close?.();
+});
 
-$$(".back").forEach(
-  (button) => {
-    button.addEventListener(
-      "click",
-      () => go("home"),
-    );
-  },
-);
+$("#adminBtn")?.addEventListener("click", () => {
+  const url = "https://t.me/olkadolka228";
 
+  if (TG?.openTelegramLink) {
+    TG.openTelegramLink(url);
+  } else {
+    window.location.href = url;
+  }
+});
 
-$("#closeBtn")?.addEventListener(
-  "click",
-  () => {
-    TG?.close?.();
-  },
-);
-
-
-/* =====================================================
-   TELEGRAM
-===================================================== */
-
-$("#adminBtn")?.addEventListener(
-  "click",
-  () => {
-    const url =
-      "https://t.me/olkadolka228";
-
-    if (TG?.openTelegramLink) {
-      TG.openTelegramLink(url);
-    } else {
-      window.location.href = url;
-    }
-  },
-);
-
-
-/* =====================================================
-   USER DATA
-===================================================== */
-
-const telegramName =
-  [
-    user.first_name,
-    user.last_name,
-  ]
-    .filter(Boolean)
-    .join(" ");
+const telegramName = [
+  user.first_name,
+  user.last_name,
+].filter(Boolean).join(" ");
 
 if ($("#name") && telegramName) {
-  $("#name").value =
-    telegramName;
+  $("#name").value = telegramName;
 }
-
 
 if ($("#date")) {
   $("#date").min =
-    new Date()
-      .toISOString()
-      .slice(0, 10);
+    new Date().toISOString().slice(0, 10);
 }
 
-
-/* =====================================================
-   API
-===================================================== */
-
-async function api(
-  action,
-  extra = {},
-) {
+async function api(action, extra = {}) {
   if (!initData) {
     throw new Error(
       "Откройте O.nails через Telegram.",
     );
   }
 
-  const response =
-    await fetch(API, {
-      method: "POST",
-
-      headers: {
-        "Content-Type":
-          "application/json",
-
-        "apikey":
-          SUPABASE_KEY,
-      },
-
-      body: JSON.stringify({
-        action,
-        initData,
-        ...extra,
-      }),
-    });
+  const response = await fetch(API, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+      "apikey": SUPABASE_KEY,
+    },
+    body: JSON.stringify({
+      action,
+      initData,
+      ...extra,
+    }),
+  });
 
   let data = null;
 
   try {
-    data =
-      await response.json();
+    data = await response.json();
   } catch {
     data = null;
   }
 
-  if (
-    !response.ok ||
-    !data?.ok
-  ) {
+  if (!response.ok || !data?.ok) {
     throw new Error(
-      data?.error ||
-        "Ошибка сервера.",
+      data?.error || "Ошибка сервера.",
     );
   }
 
   return data;
 }
 
-
-/* =====================================================
-   ESCAPE HTML
-===================================================== */
-
 function esc(value) {
-  return String(
-    value ?? "—",
-  ).replace(
+  return String(value ?? "—").replace(
     /[&<>"']/g,
-    (match) => ({
-      "&": "&amp;",
-      "<": "&lt;",
-      ">": "&gt;",
-      '"': "&quot;",
-      "'": "&#039;",
-    })[match],
+    (match) =>
+      ({
+        "&": "&amp;",
+        "<": "&lt;",
+        ">": "&gt;",
+        '"': "&quot;",
+        "'": "&#039;",
+      })[match],
   );
 }
 
-
-/* =====================================================
-   BOOKING HTML
-===================================================== */
-
-function bookingHtml(
-  booking,
-) {
+function bookingHtml(booking) {
   if (!booking) {
     return `
       <div class="loader">
@@ -249,23 +161,18 @@ function bookingHtml(
     `;
   }
 
-  const date =
-    String(
-      booking.booking_date ||
-        "",
-    )
-      .split("-")
-      .reverse()
-      .join(".");
+  const date = String(
+    booking.booking_date || "",
+  )
+    .split("-")
+    .reverse()
+    .join(".");
 
   return `
     <div class="booking-details">
-
       <div class="detail">
         <span>👤 Имя</span>
-        <b>${esc(
-          booking.name,
-        )}</b>
+        <b>${esc(booking.name)}</b>
       </div>
 
       <div class="detail">
@@ -277,83 +184,54 @@ function bookingHtml(
         <span>🕐 Время</span>
         <b>${esc(
           String(
-            booking.booking_time ||
-              "16:00",
+            booking.booking_time || "16:00",
           ).slice(0, 5),
         )}</b>
       </div>
 
       <div class="detail">
         <span>💅 Длина</span>
-        <b>${esc(
-          booking.nail_length,
-        )}</b>
+        <b>${esc(booking.nail_length)}</b>
       </div>
 
       <div class="detail">
         <span>🎨 Дизайн</span>
-        <b>${esc(
-          booking.design ||
-            "нет",
-        )}</b>
+        <b>${esc(booking.design || "нет")}</b>
       </div>
 
       <div class="detail">
         <span>✂️ Снятие</span>
-        <b>${
-          booking.removal
-            ? "да"
-            : "нет"
-        }</b>
+        <b>${booking.removal ? "да" : "нет"}</b>
       </div>
 
       <div class="detail">
         <span>🔧 Коррекция</span>
-        <b>${
-          booking.correction
-            ? "да"
-            : "нет"
-        }</b>
+        <b>${booking.correction ? "да" : "нет"}</b>
       </div>
 
       <div class="detail">
         <span>💬 Комментарий</span>
-        <b>${esc(
-          booking.comment ||
-            "нет",
-        )}</b>
+        <b>${esc(booking.comment || "нет")}</b>
       </div>
-
     </div>
   `;
 }
-
-
-/* =====================================================
-   LOAD MY BOOKING
-===================================================== */
 
 async function loadBooking(
   boxId,
   cancelMode = false,
   rescheduleMode = false,
 ) {
-  const box =
-    $("#" + boxId);
+  const box = $("#" + boxId);
 
   if (!box) return;
 
   box.innerHTML = `
-    <div class="loader">
-      Загрузка…
-    </div>
+    <div class="loader">Загрузка…</div>
   `;
 
   try {
-    const data =
-      await api(
-        "my_booking",
-      );
+    const data = await api("my_booking");
 
     if (!data.booking) {
       box.innerHTML = `
@@ -361,62 +239,33 @@ async function loadBooking(
           ❌ Активная запись не найдена.
         </div>
       `;
-
       return;
     }
 
-    box.innerHTML =
-      bookingHtml(
-        data.booking,
-      );
+    box.innerHTML = bookingHtml(data.booking);
 
-    if (
-      cancelMode
-    ) {
+    if (cancelMode) {
       box.innerHTML += `
         <div class="actions">
-
-          <button
-            class="danger-btn"
-            id="doCancel"
-          >
+          <button class="danger-btn" id="doCancel">
             ❌ Отменить запись
           </button>
-
-          <button
-            class="secondary"
-            id="backHome"
-          >
+          <button class="secondary" id="backHome">
             Назад
           </button>
-
         </div>
       `;
-    } else if (
-      rescheduleMode
-    ) {
-      renderReschedule(
-        box,
-        data.booking,
-      );
+    } else if (rescheduleMode) {
+      renderReschedule(box, data.booking);
     } else {
       box.innerHTML += `
         <div class="actions">
-
-          <button
-            class="secondary"
-            id="toCancel"
-          >
+          <button class="secondary" id="toCancel">
             ❌ Отменить
           </button>
-
-          <button
-            class="secondary"
-            id="toReschedule"
-          >
+          <button class="secondary" id="toReschedule">
             🔄 Перенести
           </button>
-
         </div>
       `;
     }
@@ -440,340 +289,180 @@ async function loadBooking(
       "click",
       cancelBooking,
     );
-
   } catch (error) {
     box.innerHTML = `
       <div class="loader">
-        ❌ ${esc(
-          error.message,
-        )}
+        ❌ ${esc(error.message)}
       </div>
     `;
   }
 }
 
-
-/* =====================================================
-   CANCEL
-===================================================== */
-
 async function cancelBooking() {
-  const confirmed =
-    window.confirm(
-      "Отменить вашу запись?",
-    );
+  const confirmed = window.confirm(
+    "Отменить вашу запись?",
+  );
 
-  if (!confirmed) {
-    return;
-  }
+  if (!confirmed) return;
 
   try {
-    await api(
-      "cancel_booking",
-    );
+    await api("cancel_booking");
 
-    toast(
-      "Запись отменена",
-    );
-
+    toast("Запись отменена");
     go("home");
-
   } catch (error) {
-    toast(
-      error.message,
-      true,
-    );
+    toast(error.message, true);
   }
 }
 
-
-/* =====================================================
-   RESCHEDULE
-===================================================== */
-
-function renderReschedule(
-  box,
-  booking,
-) {
+function renderReschedule(box, booking) {
   box.innerHTML =
-    bookingHtml(
-      booking,
-    ) +
+    bookingHtml(booking) +
     `
-      <div
-        class="form-card"
-        style="margin-top:14px"
-      >
-
+      <div class="form-card" style="margin-top:12px">
         <label>
           Новая дата
-
-          <input
-            id="rescheduleDate"
-            type="date"
-          >
+          <input id="rescheduleDate" type="date">
         </label>
 
         <div class="fixed-time">
-          🕐 Время останется
+          <span>🕐</span>
+          <span>Время останется</span>
           <b>16:00</b>
         </div>
 
-        <button
-          class="primary wide"
-          id="doReschedule"
-        >
+        <button class="primary wide" id="doReschedule">
           🔄 Перенести запись
         </button>
 
-        <div
-          id="resStatus"
-          class="status"
-        ></div>
-
+        <div id="resStatus" class="status"></div>
       </div>
     `;
 
-  const input =
-    $("#rescheduleDate");
-
+  const input = $("#rescheduleDate");
   if (!input) return;
 
   input.min =
-    new Date()
-      .toISOString()
-      .slice(0, 10);
+    new Date().toISOString().slice(0, 10);
 
   $("#doReschedule")?.addEventListener(
     "click",
     async () => {
-      const date =
-        input.value;
-
-      const status =
-        $("#resStatus");
+      const date = input.value;
+      const status = $("#resStatus");
 
       if (!date) {
-        status.textContent =
-          "Выберите дату";
-
-        status.className =
-          "status error";
-
+        status.textContent = "Выберите дату";
+        status.className = "status error";
         return;
       }
 
       const day =
-        new Date(
-          date +
-            "T00:00:00",
-        ).getDay();
+        new Date(date + "T00:00:00").getDay();
 
-      if (
-        day === 0 ||
-        day === 6
-      ) {
+      if (day === 0 || day === 6) {
         status.textContent =
           "Можно выбрать только будний день";
-
-        status.className =
-          "status error";
-
+        status.className = "status error";
         return;
       }
 
       try {
-        await api(
-          "reschedule_booking",
-          {
-            newDate: date,
-          },
-        );
+        await api("reschedule_booking", {
+          newDate: date,
+        });
 
-        toast(
-          "Запись перенесена",
-        );
-
+        toast("Запись перенесена");
         go("mybooking");
-
       } catch (error) {
-        status.textContent =
-          error.message;
-
-        status.className =
-          "status error";
+        status.textContent = error.message;
+        status.className = "status error";
       }
     },
   );
 }
 
-
-/* =====================================================
-   CREATE BOOKING
-===================================================== */
-
 async function submitBooking() {
-  const status =
-    $("#bookingStatus");
+  const status = $("#bookingStatus");
 
-  const date =
-    $("#date")?.value;
-
-  const name =
-    $("#name")?.value
-      .trim();
+  const date = $("#date")?.value;
+  const name = $("#name")?.value.trim();
 
   if (!name || !date) {
     status.textContent =
       "Заполните имя и дату";
-
-    status.className =
-      "status error";
-
+    status.className = "status error";
     return;
   }
 
   const day =
-    new Date(
-      date +
-        "T00:00:00",
-    ).getDay();
+    new Date(date + "T00:00:00").getDay();
 
-  if (
-    day === 0 ||
-    day === 6
-  ) {
+  if (day === 0 || day === 6) {
     status.textContent =
       "Можно выбрать только будний день";
-
-    status.className =
-      "status error";
-
+    status.className = "status error";
     return;
   }
 
-  const button =
-    $("#submitBooking");
-
+  const button = $("#submitBooking");
   button.disabled = true;
-
-  button.textContent =
-    "Сохраняем…";
-
-  status.textContent =
-    "";
+  button.textContent = "Сохраняем…";
+  status.textContent = "";
+  status.className = "status";
 
   try {
-    const data =
-      await api(
-        "create_booking",
-        {
-          booking: {
-            name,
-
-            booking_date:
-              date,
-
-            booking_time:
-              "16:00",
-
-            nail_length:
-              $("#length")
-                ?.value || "",
-
-            design:
-              $("#design")
-                ?.value
-                .trim() || "",
-
-            removal:
-              Boolean(
-                $("#removal")
-                  ?.checked,
-              ),
-
-            correction:
-              Boolean(
-                $("#correction")
-                  ?.checked,
-              ),
-
-            comment:
-              $("#comment")
-                ?.value
-                .trim() || "",
-          },
-        },
-      );
+    await api("create_booking", {
+      booking: {
+        name,
+        booking_date: date,
+        booking_time: "16:00",
+        nail_length:
+          $("#length")?.value || "",
+        design:
+          $("#design")?.value.trim() || "",
+        removal:
+          Boolean($("#removal")?.checked),
+        correction:
+          Boolean($("#correction")?.checked),
+        comment:
+          $("#comment")?.value.trim() || "",
+      },
+    });
 
     status.textContent =
       "Запись успешно создана 💗";
+    status.className = "status ok";
 
-    status.className =
-      "status ok";
+    toast("Запись подтверждена");
 
-    toast(
-      "Запись подтверждена",
-    );
-
-    setTimeout(
-      () => go("mybooking"),
-      500,
-    );
-
+    setTimeout(() => go("mybooking"), 500);
   } catch (error) {
-    status.textContent =
-      error.message;
-
-    status.className =
-      "status error";
-
+    status.textContent = error.message;
+    status.className = "status error";
   } finally {
     button.disabled = false;
-
-    button.textContent =
-      "Подтвердить запись";
+    button.innerHTML =
+      'Подтвердить запись <b>→</b>';
   }
 }
-
 
 $("#submitBooking")?.addEventListener(
   "click",
   submitBooking,
 );
 
-
-/* =====================================================
-   TOAST
-===================================================== */
-
-function toast(
-  text,
-  error = false,
-) {
-  const element =
-    $("#toast");
-
+function toast(text, error = false) {
+  const element = $("#toast");
   if (!element) return;
 
-  element.textContent =
-    text;
-
+  element.textContent = text;
   element.style.background =
-    error
-      ? "#9d5366"
-      : "#3b2d32";
+    error ? "#9d5366" : "#3b2d32";
 
-  element.classList.add(
-    "show",
-  );
+  element.classList.add("show");
 
-  setTimeout(
-    () => {
-      element.classList.remove(
-        "show",
-      );
-    },
-    2200,
-  );
+  setTimeout(() => {
+    element.classList.remove("show");
+  }, 2200);
 }
